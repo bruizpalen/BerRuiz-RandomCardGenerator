@@ -1,16 +1,16 @@
 
 const cardObjectsList = [
-    { number: '7',
-    icon: `<i class="fa-solid fa-heart"></i>`,
-    color: 'red'},
+    // { number: '7',
+    // icon: `<i class="fa-solid fa-heart"></i>`,
+    // color: 'red'},
 
-    { number: '7',
-    icon: `<i class="fa-solid fa-clover"></i>`,
-    color: 'red'},
+    // { number: '7',
+    // icon: `<i class="fa-solid fa-clover"></i>`,
+    // color: 'red'},
 
-    { number: '7',
-    icon: `<i class="fa-solid fa-diamond"></i>`,
-    color: 'red'}
+    // { number: '7',
+    // icon: `<i class="fa-solid fa-diamond"></i>`,
+    // color: 'red'}
 
 ];
 
@@ -40,7 +40,7 @@ function createRandomIconsAmericanCards(){
             clover: `<i class="fa-solid fa-clover"></i>`,
             spade: `<i class="fa-solid fa-trash"></i>`
         }
-        console.log(Object.keys(iconsHTML).length)
+        // console.log(Object.keys(iconsHTML).length)
         let randomIndex = Math.floor(Math.random() * Object.keys(iconsHTML).length);
         // return Object.keys(iconsHTML)[randomIndex];
         return iconsHTML[Object.keys(iconsHTML)[randomIndex]];
@@ -48,32 +48,68 @@ function createRandomIconsAmericanCards(){
 
 
 function assignRandomColor(){
-    let colours = ['', 'red'];
+    let colours = ['black', 'red'];
     let randomIndex = Math.floor(Math.random() * colours.length);
     return colours[randomIndex];
 }
 
+function checkIfCardAlreadyExits(card, array){
+    const pepito = array;
+    const exampleCard = card;
+    for (cardElement of pepito){
+        if ((exampleCard.number == cardElement.number) && (exampleCard.icon == cardElement.icon) && (exampleCard.color == cardElement.color)){
+            return true
+        }
+    }
 
-function createNewCard(cardObjectsList){
-    const usedCards = [...cardObjectsList];
-    const newCard = false;
-    const counter = 0;
-    // while (!newCard && ){
-
-    // }
-    return console.log(usedCards);
+    return false;
 }
 
+
+function createNewCard(){
+    let cardIsNew = false;
+    const numberIterations = 5; // 112 combinations
+    while (!cardIsNew && cardObjectsList.length<numberIterations){
+        let newCardObject = {
+            number: createRandomCardNumber(),
+            icon: createRandomIconsAmericanCards(),
+            color: assignRandomColor()
+        }
+        console.log(cardObjectsList.length)
+        if (!(checkIfCardAlreadyExits(newCardObject, cardObjectsList))){
+            cardIsNew = true
+            cardObjectsList.push(newCardObject)
+            return newCardObject;
+        }
+
+    }
+    if (cardObjectsList.length == numberIterations){
+        console.log(cardObjectsList.length)
+        return false
+    }
+
+    
+}
+
+                    
 card.addEventListener('click', function() {
     centerNumber.innerHTML = '';
     centerNumber.style.fontSize = '8rem';
-    centerNumber.textContent = createRandomCardNumber();
-    const randomIcon = createRandomIconsAmericanCards();
-    const selectedColour = assignRandomColor();
-    for (const icon of icons) {
-    icon.innerHTML = randomIcon;
-    icon.style.color = selectedColour ;
+    const newCreatedCard = createNewCard();
+    if (newCreatedCard){
+        centerNumber.textContent = newCreatedCard.number;
+        for (const icon of icons) {
+            icon.innerHTML = newCreatedCard.icon;
+            icon.style.color = newCreatedCard.color ;
+            }
     }
+    else{
+        icons[0].innerHTML = '';
+        icons[1].innerHTML = '';
+        centerNumber.textContent = 'End';
+        
+    }
+
 });
 
 

@@ -1,8 +1,5 @@
 
 const cardObjectsList = [
-    //     number: 7,
-//     icon: 'heart',
-//     color: 'red'
     { number: '7',
     icon: `<i class="fa-solid fa-heart"></i>`,
     color: 'red'},
@@ -15,7 +12,7 @@ const cardObjectsList = [
     icon: `<i class="fa-solid fa-diamond"></i>`,
     color: 'red'}
 
-]; // This is an array of objects which keeps the info concerning the number, the icon and the color
+];
 if (Array.isArray(cardObjectsList)) {
     const usedCards = [...cardObjectsList];
     // Rest of your code here...
@@ -95,5 +92,5 @@ function createNewCard(){
 }
 
 console.log(createNewCard());
-console.log(cardObjectsList);
+// console.log(cardObjectsList);
 
